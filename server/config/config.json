@@ -1,0 +1,47 @@
+{
+  "development": {
+    "username": "bookshelf_u7nl_user",
+    "password": "3xQgDzAgQwOY21vz7CtbZqfW62eLQyP2",
+    "database": "bookshelf_u7nl",
+    "host": "dpg-cp9e0adds78s73cgd5m0-a.frankfurt-postgres.render.com",
+    "dialect": "postgres",
+    "port": 5432, 
+    "logging": false, 
+    "dialectOptions": {
+      "ssl": {
+        "require": true, 
+        "rejectUnauthorized": false
+      }
+    }
+  },
+  "test": {
+    "username": "bookshelf_u7nl_user",
+    "password": "3xQgDzAgQwOY21vz7CtbZqfW62eLQyP2",
+    "database": "bookshelf_u7nl",
+    "host": "dpg-cp9e0adds78s73cgd5m0-a.frankfurt-postgres.render.com",
+    "dialect": "postgres",
+    "port": 5432, 
+    "logging": false, 
+    "dialectOptions": {
+      "ssl": {
+        "require": true, 
+        "rejectUnauthorized": false
+      }
+    }
+  },
+  "production": {
+    "username": "bookshelf_u7nl_user",
+    "password": "3xQgDzAgQwOY21vz7CtbZqfW62eLQyP2",
+    "database": "bookshelf_u7nl",
+    "host": "dpg-cp9e0adds78s73cgd5m0-a.frankfurt-postgres.render.com",
+    "dialect": "postgres",
+    "port": 5432, 
+    "logging": false, 
+    "dialectOptions": {
+      "ssl": {
+        "require": true, 
+        "rejectUnauthorized": false
+      }
+    }
+  }
+}
