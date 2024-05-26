@@ -18,11 +18,7 @@ function SearchBooks() {
   const addToReadList = async (book) => {
     try {
       // Step 1: Add the book to the database
-      const bookResponse = await axios.post('/api/books', {
-        name: book.volumeInfo.title,
-        author: book.volumeInfo.authors?.join(', '),
-        description: book.volumeInfo.description,
-      });
+      const bookResponse = await axios.get('/api/books');
 
       // Step 2: Get the book ID from the database response
       const bookId = bookResponse.data.id;
@@ -30,7 +26,8 @@ function SearchBooks() {
       // Step 3: Add the book to the read list in the database
       // await axios.post('/api/read-lists', { userId: 1, bookId });
 
-      console.log('Added to "read" list:', book.volumeInfo.title);
+      console.log('Added to "read" list:');
+      // console.log(book.volumeInfo.title);
     } catch (error) {
       console.error('Error adding book to "read" list:', error);
     }    console.log('Added to "read" list:');
@@ -49,7 +46,7 @@ function SearchBooks() {
   return (
     <div className="search-books-container">
       <div className="search-books-form">
-        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for books..." />
         <button onClick={handleSearch}>Search</button>
       </div>
       <div className="search-books-results">
@@ -57,9 +54,11 @@ function SearchBooks() {
           <div className="book-card" key={book.id}>
             <h2>{book.volumeInfo.title}</h2>
             <p>Author: {book.volumeInfo.authors?.join(', ')}</p>
-            <button onClick={() => addToReadList(book)}>Add to "Read" List</button>
-            <button onClick={() => addToToBeReadList(book)}>Add to "To Be Read" List</button>
-            <button onClick={() => writeReview(book)}>Write a Review</button>
+            <div className="button-group">
+              <button className="add-to-list" onClick={() => addToReadList(book)}>Add to "Read" List</button>
+              <button className="add-to-list" onClick={() => addToToBeReadList(book)}>Add to "To Be Read" List</button>
+              <button className="write-review" onClick={() => writeReview(book)}>Write a Review</button>
+            </div>
           </div>
         ))}
       </div>

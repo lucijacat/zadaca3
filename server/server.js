@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { Sequelize } = require('sequelize');
+const db = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -9,31 +9,17 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-
-// Database connection
-const sequelize = new Sequelize('postgres://bookshelf_u7nl_user:3xQgDzAgQwOY21vz7CtbZqfW62eLQyP2@dpg-cp9e0adds78s73cgd5m0-a.frankfurt-postgres.render.com/bookshelf_u7nl', {
-    dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false
-        }
-    },
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
+// Connect to the database
+(async () => {
+    try {
+      await db.connect();
+      console.log('Database connected successfully');
+    } catch (error) {
+      console.error('Error connecting to database:', error.message);
+      process.exit(1); // Exit the process if database connection fails
     }
-});
-
-// Test DB connection
-sequelize.authenticate()
-    .then(() => console.log('Database connected...'))
-    .catch(err => {
-        console.error('Unable to connect to the database:', err.message);
-        console.error('Error stack:', err.stack);
-    });
-
+})();
+  
 // Routes
 const bookRoutes = require('./routes/bookRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');

@@ -1,17 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { Review } = require('../models/review');
+const { createReview, getReviewsByBookId, getAllReviews, getReviewsByUserId } = require('../controllers/reviews.controllers');
 
-// Route to create a new review
-router.post('/', async (req, res) => {
-  const { userId, bookId, comment, rating } = req.body;
-  try {
-    const newReview = await Review.create({ userId, bookId, comment, rating });
-    res.status(201).json(newReview);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Failed to create review' });
-  }
-});
+router.post('/', createReview);
+router.get('/book/:bookId', getReviewsByBookId);
+router.get('/', getAllReviews);
+router.get('/user/:userId', getReviewsByUserId);
 
 module.exports = router;
