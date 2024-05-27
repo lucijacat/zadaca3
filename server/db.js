@@ -7,7 +7,7 @@ const pool = new Pool({
   password: '3xQgDzAgQwOY21vz7CtbZqfW62eLQyP2',
   port: 5432, 
   ssl: {
-    rejectUnauthorized: false // Disable SSL certificate validation (for development only)
+    rejectUnauthorized: false
   }
 });
 

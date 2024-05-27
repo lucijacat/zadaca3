@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import ReviewModal from './ReviewModal';
 import './SearchBooks.css'; // Import CSS file for styling
 
 function SearchBooks() {
   const [query, setQuery] = useState('');
   const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
+
 
   const handleSearch = async () => {
     try {
@@ -17,30 +20,57 @@ function SearchBooks() {
 
   const addToReadList = async (book) => {
     try {
-      // Step 1: Add the book to the database
-      const bookResponse = await axios.get('/api/books');
+      const bookResponse = await axios.post('/api/books', {
+        name: book.volumeInfo.title,
+        author: book.volumeInfo.authors.join(', '),
+        description: book.volumeInfo.description,
+      });
 
-      // Step 2: Get the book ID from the database response
       const bookId = bookResponse.data.id;
 
-      // Step 3: Add the book to the read list in the database
-      // await axios.post('/api/read-lists', { userId: 1, bookId });
+      await axios.post('/api/read-lists', { userId: 1, bookId });
 
       console.log('Added to "read" list:');
-      // console.log(book.volumeInfo.title);
+      console.log(book.volumeInfo.title);
     } catch (error) {
       console.error('Error adding book to "read" list:', error);
-    }    console.log('Added to "read" list:');
+    }
   };
 
-  const addToToBeReadList = (book) => {
-    // Add logic to add the book to the "to be read" list
-    console.log('Added to "to be read" list:');
+  const addToToBeReadList = async (book) => {
+    try {
+      const bookResponse = await axios.post('/api/books', {
+        name: book.volumeInfo.title,
+        author: book.volumeInfo.authors.join(', '),
+        description: book.volumeInfo.description,
+      });
+
+      const bookId = bookResponse.data.id;
+
+      await axios.post('/api/to-be-read-lists', { userId: 1, bookId });
+
+      console.log('Added to "to be read" list:');
+      console.log(book.volumeInfo.title);
+    } catch (error) {
+      console.error('Error adding book to "to be read" list:', error);
+    }
   };
 
-  const writeReview = (book) => {
-    // Add logic to navigate to the review page for the selected book
-    console.log('Write a review:');
+  const handleWriteReview = (book) => {
+    setSelectedBook(book);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedBook(null);
+  };
+
+  const handleSubmitReview = async (reviewData) => {
+    try {
+      await axios.post('/api/reviews', { userId: 1, bookId: reviewData.bookId, rating: reviewData.rating, comment: reviewData.comment });
+      setSelectedBook(null);
+    } catch (error) {
+      console.error('Error submitting review:', error);
+    }
   };
 
   return (
@@ -57,11 +87,14 @@ function SearchBooks() {
             <div className="button-group">
               <button className="add-to-list" onClick={() => addToReadList(book)}>Add to "Read" List</button>
               <button className="add-to-list" onClick={() => addToToBeReadList(book)}>Add to "To Be Read" List</button>
-              <button className="write-review" onClick={() => writeReview(book)}>Write a Review</button>
+              <button className="write-review" onClick={() => handleWriteReview(book)}>Write a Review</button>
             </div>
           </div>
         ))}
       </div>
+      {selectedBook && (
+        <ReviewModal book={selectedBook} onClose={handleCloseModal} onSubmit={handleSubmitReview} />
+      )}
     </div>
   );
 }

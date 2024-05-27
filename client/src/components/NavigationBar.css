@@ -1,0 +1,46 @@
+.navigation-bar {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navigation-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navigation-bar li {
+    margin-right: 1rem;
+}
+
+.navigation-bar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.navigation-bar a:hover {
+    background-color: #555;
+}
+
+.navigation-bar .logo {
+    font-size: 1.5rem;
+}
+
+.navigation-bar .profile-link {
+    border: 1px solid #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.navigation-bar .profile-link:hover {
+    background-color: #555;
+}
