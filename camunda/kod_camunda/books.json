@@ -1,0 +1,50 @@
+[
+    {
+        "id":1,
+        "name": "Book 1",
+        "author": "Author 1",
+        "review": ""
+    },
+    {
+        "id":2,
+        "name": "Book 2",
+        "author": "Author 2",
+        "review": "Great book!"
+    },
+    {
+        "id":3,
+        "name": "Book 3",
+        "author": "Author 3",
+        "review": ""
+    },
+    {
+        "id":4,
+        "name": "Book 4",
+        "author": "Author 1",
+        "review": ""
+    },
+    {
+        "id":5,
+        "name": "Book 5",
+        "author": "Author 2",
+        "review": "Great book!"
+    },
+    {
+        "id":6,
+        "name": "Book 6",
+        "author": "Author 3",
+        "review": ""
+    },
+    {
+        "id":7,
+        "name": "Book 7",
+        "author": "Author 1",
+        "review": ""
+    },
+    {
+        "id":8,
+        "name": "Book 8",
+        "author": "Author 2",
+        "review": "Great book!"
+    }
+]
